@@ -7,8 +7,9 @@ public class Floor {
     final int minFloorSize = 1;
     final int gridSize = 50;
     final int gridSpacing = 3;
-    Player player;
     Inventory inventory;
+    Player player;
+    Menu menu;
 
     private int floorLength;
     private int floorWidth;
@@ -23,6 +24,9 @@ public class Floor {
         this.floorWidth = 3;
         floor = new ArrayList<>();
         rooms = new Room[floorLength][floorWidth];
+        this.inventory = new Inventory();
+        this.player = new Player(0, 0, null, 100, null, inventory);
+        this.menu = new Menu(player);
     }
 
     public Floor(int floorLength, int floorWidth) {
@@ -31,6 +35,9 @@ public class Floor {
             this.floorWidth = floorWidth;
             floor = new ArrayList<>();
             rooms = new Room[floorLength][floorWidth];
+            this.inventory = new Inventory();
+            this.player = new Player(0, 0, null, 100, null, inventory);
+            this.menu = new Menu(player);
         }
     }
 
@@ -64,13 +71,26 @@ public class Floor {
                     rooms[i][j].fillRoom();
                     rooms[i][j].generateEnemyPositions();
                     rooms[i][j].placeEnemies();
-                }
+                } else { rooms[i][j].numEnemies = 0; rooms[i][j].enemies.clear(); }
             }
         }
         Room startingRoom = rooms[floorLength-1][entranceRoom];
-        inventory = new Inventory();
-        player = new Player(startingRoom.roomLength/2, startingRoom.roomWidth/2, startingRoom, 100, null, inventory);
+        player.xPos = startingRoom.roomLength/2;
+        player.yPos = startingRoom.roomWidth/2;
+        player.currentRoom = startingRoom;
         player.currentRoom.placePlayer(player);
+    }
+
+    public int getTotalEnemies() {
+        int total = 0;
+
+        for (int i = 0; i < rooms.length; i++) {
+            for (int j = 0; j < rooms[i].length; j++) {
+                total += rooms[i][j].numEnemies;
+            }
+        }
+
+        return total;
     }
 
     public void nextFrame() {
@@ -84,6 +104,14 @@ public class Floor {
         }
     }
     public void printFloor() {
+        menu.showCurrentWeapon = true;
+        menu.showPlayerHealth = true;
+        menu.showMaxMoveDistance = true;
+        menu.showEnemyCount = true;
+        menu.constructMenu(getTotalEnemies());
+
+        int c = 0;
+
         for (int i = 0; i < floorLength; i++) {
             for (int k = 0; k < rooms[0][0].grid.length; k++) {
                 for (int j = 0; j < floorWidth; j++) {
@@ -94,6 +122,7 @@ public class Floor {
                     }
 //                    System.out.print("\t\t");
                 }
+                if (!((c+1) > menu.menuBar.size())) { System.out.print(" " + menu.menuBar.get(c)); c++; }
                 System.out.println();
             }
         }

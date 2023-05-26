@@ -42,8 +42,9 @@ public class Room {
         this.southDoor = rd.nextBoolean();
         this.westDoor = rd.nextBoolean();
         this.eastDoor = rd.nextBoolean();
-        this.numEnemies = rd.nextInt(4);
         this.enemies = new ArrayList<>();
+
+        this.numEnemies = rd.nextInt(4);
         for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
 
@@ -209,7 +210,7 @@ public class Room {
             int x = rd.nextInt(roomLength-3)+1;
             int y = rd.nextInt(roomWidth-3)+1;
 
-            while (grid[x][y] != ' ') {
+            while (grid[x][y] != empty) {
                 x = rd.nextInt(roomLength-3)+1;
                 y = rd.nextInt(roomWidth-3)+1;
             }
@@ -234,7 +235,7 @@ public class Room {
             enemies.get(i).lastXPos = enemies.get(i).xPos;
             enemies.get(i).lastYPos = enemies.get(i).yPos;
 
-            while (grid[enemies.get(i).xPos][enemies.get(i).yPos] != ' ') {
+            while (grid[enemies.get(i).xPos][enemies.get(i).yPos] != empty) {
                 int direction = rd.nextInt(8)+1;
 
                 switch (direction) {
@@ -248,7 +249,7 @@ public class Room {
                     case 8 -> { enemies.get(i).xPos--; enemies.get(i).yPos++; }
                 }
 
-                if (grid[enemies.get(i).xPos][enemies.get(i).yPos] != ' ') {
+                if (grid[enemies.get(i).xPos][enemies.get(i).yPos] != empty) {
                     enemies.get(i).xPos = enemies.get(i).lastXPos;
                     enemies.get(i).yPos = enemies.get(i).lastYPos;
                 }

@@ -8,6 +8,8 @@ public class Player {
     public Room currentRoom;
 
     protected int maxHealth;
+    public int level;
+    public int health;
     protected Item activeItem;
     protected Inventory inventory;
     protected int maxMoveDistance;
@@ -20,6 +22,8 @@ public class Player {
         this.activeItem = activeItem;
         this.inventory = inventory;
         this.maxMoveDistance = 5;
+        this.health = maxHealth;
+        this.level = 0;
     }
 
     public void move(int x, int y) {
@@ -27,6 +31,11 @@ public class Player {
             xPos = x;
             yPos = y;
         }
+    }
+
+    public void takeDamage(double damage) {
+        if ((health-damage) < 0) { health = 0; }
+        else { health-=damage; }
     }
 
 }
