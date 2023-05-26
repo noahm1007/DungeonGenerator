@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Floor {
@@ -7,6 +6,7 @@ public class Floor {
     final int minFloorSize = 1;
     final int gridSize = 50;
     final int gridSpacing = 3;
+    int level;
     Inventory inventory;
     Player player;
     Menu menu;
@@ -27,9 +27,10 @@ public class Floor {
         this.inventory = new Inventory();
         this.player = new Player(0, 0, null, 100, null, inventory);
         this.menu = new Menu(player);
+        this.level = 0;
     }
 
-    public Floor(int floorLength, int floorWidth) {
+    public Floor(int floorLength, int floorWidth, int level) {
         if (floorLength <= maxFloorSize && floorLength >= minFloorSize && floorWidth <= maxFloorSize && floorWidth >= minFloorSize) {
             this.floorLength = floorLength;
             this.floorWidth = floorWidth;
@@ -38,6 +39,7 @@ public class Floor {
             this.inventory = new Inventory();
             this.player = new Player(0, 0, null, 100, null, inventory);
             this.menu = new Menu(player);
+            this.level = level;
         }
     }
 
@@ -104,11 +106,12 @@ public class Floor {
         }
     }
     public void printFloor() {
-        menu.showCurrentWeapon = true;
+        menu.showHeldItem = true;
         menu.showPlayerHealth = true;
         menu.showMaxMoveDistance = true;
         menu.showEnemyCount = true;
-        menu.constructMenu(getTotalEnemies());
+        menu.showPlayerXP = true;
+        menu.constructMenu(getTotalEnemies(), level);
 
         int c = 0;
 

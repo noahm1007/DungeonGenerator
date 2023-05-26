@@ -45,7 +45,7 @@ public class Room {
         this.enemies = new ArrayList<>();
 
         this.numEnemies = rd.nextInt(4);
-        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
+        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
 
     public Room(int roomLength, int roomWidth) {
@@ -63,7 +63,7 @@ public class Room {
         }
         this.numEnemies = rd.nextInt(4);
         this.enemies = new ArrayList<>();
-        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
+        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
 
     public Room(int roomLength, int roomWidth, boolean northDoor, boolean southDoor, boolean eastDoor, boolean westDoor) {
@@ -81,7 +81,7 @@ public class Room {
         }
         this.numEnemies = rd.nextInt(4);
         this.enemies = new ArrayList<>();
-        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
+        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
 
     public boolean isNorthDoor() { return northDoor; }
