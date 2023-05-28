@@ -56,8 +56,11 @@ public class DungeonGenerator {
 //        typewriterPrint(openingImage, 250);
 //        typewriterPrint("hey, you, you're finally awake.", 250);
 
+        calibrateTerminal();
+        input.next();
+
         floor.generateFloor();
-        floor.printFloor(true);
+        floor.printFloor(false, true);
 
         while (true) { move(input.next(), floor); }
     }
@@ -192,8 +195,16 @@ public class DungeonGenerator {
         }
 
         floor.nextFrame();
-        floor.printFloor(true);
+        floor.printFloor(false, true);
     }
+
+    public static void calibrateTerminal() {
+        System.out.println("[#] to calibrate the terminal, please shrink/expand the terminal until you can see this text and the last \"[#]\"");
+        for (int i = 0; i < 21; i++) {
+            System.out.println("[#]");
+        }
+    }
+
 }
 
 /*

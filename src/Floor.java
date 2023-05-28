@@ -26,7 +26,7 @@ public class Floor {
         this.floorWidth = 3;
         floor = new ArrayList<>();
         rooms = new Room[floorLength][floorWidth];
-        this.inventory = new Inventory(5, 5);
+        this.inventory = new Inventory(20);
         this.player = new Player(0, 0, null, 100, null, inventory);
         this.menu = new Menu(player);
         this.level = 0;
@@ -38,7 +38,7 @@ public class Floor {
             this.floorWidth = floorWidth;
             floor = new ArrayList<>();
             rooms = new Room[floorLength][floorWidth];
-            this.inventory = new Inventory(5, 5);
+            this.inventory = new Inventory(20);
             this.player = new Player(0, 0, null, 100, null, inventory);
             this.menu = new Menu(player);
             this.level = level;
@@ -110,13 +110,14 @@ public class Floor {
 
         player.currentRoom.placePlayer(player);
     }
-    public void printFloor(boolean showMenu) {
+    public void printFloor(boolean showMenu, boolean showInventory) {
         menu.showHeldItem = true;
         menu.showPlayerHealth = true;
         menu.showMaxMoveDistance = true;
         menu.showEnemyCount = true;
         menu.showPlayerXP = true;
         menu.constructMenu(getTotalEnemies(), level);
+        inventory.constructInventory();
 
         int c = 0;
 
@@ -134,6 +135,11 @@ public class Floor {
                 if (showMenu) {
                     if (!((c + 1) > menu.menuBar.size())) {
                         System.out.print(" " + menu.menuBar.get(c));
+                        c++;
+                    }
+                } else if (showInventory) {
+                    if (!((c + 1) > inventory.menuBar.size())) {
+                        System.out.print(" " + inventory.menuBar.get(c));
                         c++;
                     }
                 }
