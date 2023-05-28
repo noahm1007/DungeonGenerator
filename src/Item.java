@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Item {
+    final int rarityWeighting = 10;
     boolean isConsumable;
     boolean isEquipable;
     boolean isActive;

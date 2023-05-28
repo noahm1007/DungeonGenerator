@@ -5,6 +5,8 @@ public class Player {
  
     public int xPos;
     public int yPos;
+    public int lastXPos;
+    public int lastYPos;
     public Room currentRoom;
 
     protected int maxHealth;
@@ -30,10 +32,10 @@ public class Player {
     }
 
     public void move(int x, int y) {
-        if (xPos - Math.abs(x) <= maxMoveDistance || yPos - Math.abs(y) <= maxMoveDistance) {
+            lastXPos = xPos;
+            lastYPos = yPos;
             xPos = x;
             yPos = y;
-        }
     }
 
     public void takeDamage(double damage) {

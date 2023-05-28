@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Floor {
@@ -17,6 +18,7 @@ public class Floor {
     private int exitRoom;
 
     ArrayList<String> floor;
+    ArrayList<Item> lootTable;
     Room[][] rooms;
 
     public Floor() {
@@ -24,22 +26,23 @@ public class Floor {
         this.floorWidth = 3;
         floor = new ArrayList<>();
         rooms = new Room[floorLength][floorWidth];
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(5, 5);
         this.player = new Player(0, 0, null, 100, null, inventory);
         this.menu = new Menu(player);
         this.level = 0;
     }
 
-    public Floor(int floorLength, int floorWidth, int level) {
+    public Floor(int floorLength, int floorWidth, int level, ArrayList<Item> lootTable) {
         if (floorLength <= maxFloorSize && floorLength >= minFloorSize && floorWidth <= maxFloorSize && floorWidth >= minFloorSize) {
             this.floorLength = floorLength;
             this.floorWidth = floorWidth;
             floor = new ArrayList<>();
             rooms = new Room[floorLength][floorWidth];
-            this.inventory = new Inventory();
+            this.inventory = new Inventory(5, 5);
             this.player = new Player(0, 0, null, 100, null, inventory);
             this.menu = new Menu(player);
             this.level = level;
+            this.lootTable = lootTable;
         }
     }
 
@@ -104,8 +107,10 @@ public class Floor {
                 }
             }
         }
+
+        player.currentRoom.placePlayer(player);
     }
-    public void printFloor() {
+    public void printFloor(boolean showMenu) {
         menu.showHeldItem = true;
         menu.showPlayerHealth = true;
         menu.showMaxMoveDistance = true;
@@ -125,7 +130,14 @@ public class Floor {
                     }
 //                    System.out.print("\t\t");
                 }
-                if (!((c+1) > menu.menuBar.size())) { System.out.print(" " + menu.menuBar.get(c)); c++; }
+
+                if (showMenu) {
+                    if (!((c + 1) > menu.menuBar.size())) {
+                        System.out.print(" " + menu.menuBar.get(c));
+                        c++;
+                    }
+                }
+
                 System.out.println();
             }
         }

@@ -15,10 +15,10 @@ public class Room {
     final private String northDoorway = "╝XXX╚";
     final private String southDoorway = "╗XXX╔";
     final private String verticalDoorway = "╩X╦";
-    final private char empty = ' ';
-    final private char hole = '0';
-    final private char box = '#';
-    final private char treasure = '@';
+    final public char empty = ' ';
+    final public char hole = '0';
+    final public char box = '#';
+    final public char treasure = '@';
 
     protected int roomWidth;
     protected int roomLength;
@@ -257,7 +257,10 @@ public class Room {
         }
     }
 
-    public void placePlayer(Player player) { grid[player.xPos][player.yPos] = player.playerSymbol; }
+    public void placePlayer(Player player) {
+        if (grid[player.lastXPos][player.lastYPos] == player.playerSymbol) { grid[player.lastXPos][player.lastYPos] = empty; }
+        grid[player.xPos][player.yPos] = player.playerSymbol;
+    }
 
     public void printRoom() {
         for (int i = 0; i < this.roomLength; i++) {

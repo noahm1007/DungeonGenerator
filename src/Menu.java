@@ -1,6 +1,8 @@
 import java.util.*;
+import java.time.Clock;
 
 public class Menu {
+    Clock clock = Clock.systemDefaultZone();
     public final String leadingDesign = "[//] ";
     public final String lineBreak = "";
     public final String trailingDesign = "";
@@ -11,7 +13,6 @@ public class Menu {
     public boolean showEnemyCount;
     public boolean showPlayerXP;
     public boolean showPlayerHealth;
-    public boolean showTimeRemaining;
     public boolean showMaxMoveDistance;
     public boolean showRoomsCleared;
     public boolean playerCanAnalyze;
@@ -61,6 +62,10 @@ public class Menu {
 
         if (showEnemyCount) { menuBar.add(leadingDesign + " >enemies_remaining: " + numEnemies); }
         else { menuBar.add(leadingDesign + " >enemies_remaining: ???"); }
+
+        menuBar.add("\t END OF FILE");
+        menuBar.add(leadingDesign + "reading c:\\magnifying_glass.txt\\");
+
 
     }
 }
