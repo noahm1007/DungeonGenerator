@@ -28,7 +28,7 @@ public class Menu {
         StringBuilder health = new StringBuilder("[");
         StringBuilder experience = new StringBuilder("[");
 
-        menuBar.add("[*] MENU [*]");
+//        menuBar.add("[*] MENU [*]");
 
         menuBar.add(leadingDesign + "reading c:\\player_info.txt\\");
         menuBar.add(leadingDesign + " >name: " + "Noah");
@@ -64,7 +64,7 @@ public class Menu {
         else { menuBar.add(leadingDesign + " >enemies_remaining: ???"); }
 
         menuBar.add("\t END OF FILE");
-        menuBar.add(leadingDesign + "reading c:\\magnifying_glass.txt\\");
+        menuBar.add(leadingDesign + "executing c:\\magnifying_glass.exe\\");
 
 
     }

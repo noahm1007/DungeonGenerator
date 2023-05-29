@@ -56,11 +56,11 @@ public class DungeonGenerator {
 //        typewriterPrint(openingImage, 250);
 //        typewriterPrint("hey, you, you're finally awake.", 250);
 
-        calibrateTerminal();
-        input.next();
+//        calibrateTerminal();
+//        input.next();
 
         floor.generateFloor();
-        floor.printFloor(false, true);
+        floor.printFloor(true, false);
 
         while (true) { move(input.next(), floor); }
     }
