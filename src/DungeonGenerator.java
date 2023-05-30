@@ -1,3 +1,4 @@
+import java.io.StringBufferInputStream;
 import java.sql.PreparedStatement;
 import java.util.*;
 import java.time.Clock;
@@ -56,13 +57,17 @@ public class DungeonGenerator {
 //        typewriterPrint(openingImage, 250);
 //        typewriterPrint("hey, you, you're finally awake.", 250);
 
-//        calibrateTerminal();
-//        input.next();
+        calibrateTerminal();
+        input.next();
 
         floor.generateFloor();
         floor.printFloor(true, false);
 
-        while (true) { move(input.next(), floor); }
+        while (true) {
+            try {
+                move(input.next(), floor);
+            } catch (StringIndexOutOfBoundsException ignored) {}
+        }
     }
     
     public static void typewriterPrint(String text, int speed) throws InterruptedException {
@@ -98,7 +103,7 @@ public class DungeonGenerator {
         for (int i = 0; i < move.length(); i++) {
             try {
                 distance += Integer.parseInt(Character.toString(move.charAt(i)));
-            } catch (NumberFormatException n) {} 
+            } catch (NumberFormatException ignored) {}
         }
         
         if (distance > floor.player.maxMoveDistance) { return; }
@@ -138,23 +143,23 @@ public class DungeonGenerator {
                 }
 
                 try {
-                    if (x <= 0) {
+                    if (x <= 0 && !(floor.rooms[roomX][roomY].isClosed)) {
                         floor.player.currentRoom = floor.rooms[roomX - 1][roomY];
                         x = floor.player.currentRoom.roomLength - 2 - Math.abs(x);
-                    }
-                    if (x >= floor.player.currentRoom.roomLength - 1) {
+                    } else if (x <= 0) { x = 1; }
+                    if (x >= floor.player.currentRoom.roomLength - 1 && !(floor.rooms[roomX][roomY].isClosed)) {
                         floor.player.currentRoom = floor.rooms[roomX + 1][roomY];
                         x -= floor.player.currentRoom.roomLength - 2;
-                    }
-                    if (y <= 0) {
+                    } else if (x >= floor.player.currentRoom.roomLength - 1) { x = floor.player.currentRoom.roomLength - 2; }
+                    if (y <= 0 && !(floor.rooms[roomX][roomY].isClosed)) {
                         floor.player.currentRoom = floor.rooms[roomX][roomY - 1];
                         y = floor.player.currentRoom.roomWidth - 2 - Math.abs(y);
-                    }
-                    if (y >= floor.player.currentRoom.roomWidth - 1) {
+                    } else if (y <= 0) { y = 1; }
+                    if (y >= floor.player.currentRoom.roomWidth - 1 && !(floor.rooms[roomX][roomY].isClosed)) {
                         floor.player.currentRoom = floor.rooms[roomX][roomY + 1];
                         y -= floor.player.currentRoom.roomWidth - 2;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {}
+                    } else if (y >= floor.player.currentRoom.roomWidth - 1) { y = floor.player.currentRoom.roomWidth - 2; }
+                } catch (ArrayIndexOutOfBoundsException ignored) {}
             }
 
             if (x < 1) {
@@ -170,6 +175,7 @@ public class DungeonGenerator {
                 y = floor.player.currentRoom.roomWidth - 2;
             }
 
+            if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.enemySymbol) {/*initiate fight*/}
             if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.hole) {/*make death happen*/}
             if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.box) {
                 switch (input.charAt(0)) {
@@ -191,6 +197,7 @@ public class DungeonGenerator {
                 }
             }
 
+            floor.player.currentRoom.grid[floor.player.xPos][floor.player.yPos] = floor.player.currentRoom.empty;
             floor.player.move(x, y);
         }
 

@@ -19,6 +19,7 @@ public class Room {
     final public char hole = '0';
     final public char box = '#';
     final public char treasure = '@';
+    final public char enemySymbol = new Enemy(empty, empty, empty, empty, empty, empty, empty).enemySymbol;
 
     protected int roomWidth;
     protected int roomLength;
@@ -27,6 +28,7 @@ public class Room {
     protected boolean southDoor;
     protected boolean westDoor;
     protected boolean eastDoor;
+    public boolean isClosed = false;
     protected int numEnemies;
 
     public char[][] grid;

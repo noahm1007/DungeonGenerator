@@ -68,7 +68,7 @@ public class Floor {
                 if (j == floorWidth-1) { isEastDoor = false; }
 
                 if (i == 0 && j == exitRoom) { isNorthDoor = true; }
-                if (i == floorLength-1 && j == entranceRoom) {isSouthDoor = true; }
+                if (i == floorLength-1 && j == entranceRoom) { isSouthDoor = true; }
                 rooms[i][j] = new Room(7, 21, isNorthDoor, isSouthDoor, isEastDoor, isWestDoor);
 
                 rooms[i][j].constructRoom();
@@ -126,6 +126,7 @@ public class Floor {
                     Room room = rooms[i][j];
                     char[][] grid = room.grid;
                     for (int l = 0; l < grid[k].length; l++) {
+                        if (rooms[i][j].isClosed && grid[k][l] == 'X') { grid[k][l] = '*'; }
                         System.out.print(grid[k][l]);
                     }
 //                    System.out.print("\t\t");
