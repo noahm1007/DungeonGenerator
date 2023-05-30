@@ -104,6 +104,7 @@ public class Floor {
                 if (!(rooms[i][j].equals(rooms[floorLength-1][entranceRoom]))) {
                     rooms[i][j].moveEnemies();
                     rooms[i][j].placeEnemies();
+                    player.currentRoom.changeDoorState(player.currentRoom.numEnemies > 0);
                 }
             }
         }

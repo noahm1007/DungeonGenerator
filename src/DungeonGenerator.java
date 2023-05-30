@@ -57,8 +57,8 @@ public class DungeonGenerator {
 //        typewriterPrint(openingImage, 250);
 //        typewriterPrint("hey, you, you're finally awake.", 250);
 
-        calibrateTerminal();
-        input.next();
+//        calibrateTerminal();
+//        input.next();
 
         floor.generateFloor();
         floor.printFloor(true, false);
@@ -95,7 +95,7 @@ public class DungeonGenerator {
     }
 
     public static void move(String move, Floor floor) {
-        move.toLowerCase();
+        move = move.toLowerCase();
         int distance = 0;
         
         if (!isValidMovementString(move)) { return; }

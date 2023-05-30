@@ -10,6 +10,8 @@ public class Room {
     final int boxWeight = 45;
     final int holeWeight = 15;
     final int treasureWeight = 5;
+    final int minEnemies = 1;
+    final int maxEnemies = 4;
     int generalWeight = 30;
     final int groupWeight = 2;
     final private String northDoorway = "╝XXX╚";
@@ -46,7 +48,7 @@ public class Room {
         this.eastDoor = rd.nextBoolean();
         this.enemies = new ArrayList<>();
 
-        this.numEnemies = rd.nextInt(4);
+        this.numEnemies = rd.nextInt(maxEnemies-1)+minEnemies;
         for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
 
@@ -63,7 +65,7 @@ public class Room {
             this.roomLength = minRoomSize;
             this.roomWidth = maxRoomSize;
         }
-        this.numEnemies = rd.nextInt(4);
+        this.numEnemies = rd.nextInt(maxEnemies-1)+minEnemies;
         this.enemies = new ArrayList<>();
         for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
@@ -81,7 +83,7 @@ public class Room {
             this.roomLength = minRoomSize;
             this.roomWidth = maxRoomSize;
         }
-        this.numEnemies = rd.nextInt(4);
+        this.numEnemies = rd.nextInt(maxEnemies-1)+minEnemies;
         this.enemies = new ArrayList<>();
         for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
@@ -263,6 +265,8 @@ public class Room {
         if (grid[player.lastXPos][player.lastYPos] == player.playerSymbol) { grid[player.lastXPos][player.lastYPos] = empty; }
         grid[player.xPos][player.yPos] = player.playerSymbol;
     }
+
+    public void changeDoorState(boolean state) { isClosed = state; }
 
     public void printRoom() {
         for (int i = 0; i < this.roomLength; i++) {
