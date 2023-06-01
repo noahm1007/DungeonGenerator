@@ -64,7 +64,7 @@ public class Inventory {
         if (currentPage > numPages) { currentPage = numPages; }
 
 //        menuBar.add("[*] INVENTORY [*]");
-        menuBar.add(leadingDesign + "reading c:\\inventory.txt\\");
+        menuBar.add(leadingDesign + "reading c:\\inventory.zip\\");
 
         if (inventory.size() - (currentPage * maxPerPage) <= 0) {
             for (int i = (currentPage-1) * maxPerPage; i < inventory.size(); i++) {
@@ -80,7 +80,7 @@ public class Inventory {
         menuBar.add("\tEND OF FILE");
 
         if (isInspecting) {
-            menuBar.add("reading c:\\" + inventory.get(inspectingItem).itemName.toLowerCase().replace(' ', '_') + "\\");
+            menuBar.add("reading c:\\" + inventory.get(inspectingItem).itemName.toLowerCase().replace(' ', '_') + ".txt\\");
         }
     }
 }

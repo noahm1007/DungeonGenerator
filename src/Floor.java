@@ -118,6 +118,7 @@ public class Floor {
         menu.showEnemyCount = true;
         menu.showPlayerXP = true;
         menu.constructMenu(getTotalEnemies(), level);
+        inventory.constructInventory(10, 1);
 
         int c = 0;
 

@@ -60,8 +60,12 @@ public class DungeonGenerator {
 //        calibrateTerminal();
 //        input.next();
 
+        ArrayList<Item> lootTable = new ArrayList<>();
+        lootTable.add(new Item(true, false, true, false, "Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP."));
+        lootTable.add(new Item(false, true, false, false, "Wooden Stick", "A short wooden stick. Looks like a sword."));
+        floor.lootTable = lootTable;
         floor.generateFloor();
-        floor.printFloor(true, false);
+        floor.printFloor(false, true);
 
         while (true) {
             try {
