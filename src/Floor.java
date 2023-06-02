@@ -98,7 +98,7 @@ public class Floor {
         return total;
     }
 
-    public void nextFrame() {
+    public void nextFrame(boolean showMenu, boolean showInventory) {
         for (int i = 0; i < rooms.length; i++) {
             for (int j = 0; j < rooms[i].length; j++) {
                 if (!(rooms[i][j].equals(rooms[floorLength-1][entranceRoom]))) {
@@ -109,17 +109,21 @@ public class Floor {
             }
         }
 
-        player.currentRoom.placePlayer(player);
-    }
-    public void printFloor(boolean showMenu, boolean showInventory) {
+        // menu params <temporary>
+
         menu.showHeldItem = true;
         menu.showPlayerHealth = true;
         menu.showMaxMoveDistance = true;
         menu.showEnemyCount = true;
         menu.showPlayerXP = true;
+
         menu.constructMenu(getTotalEnemies(), level);
         inventory.constructInventory(10, 1);
 
+        player.currentRoom.placePlayer(player);
+        printFloor(showMenu, showInventory);
+    }
+    public void printFloor(boolean showMenu, boolean showInventory) {
         int c = 0;
 
         for (int i = 0; i < floorLength; i++) {

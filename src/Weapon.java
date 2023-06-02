@@ -6,8 +6,8 @@ public class Weapon extends Item {
     private double attackSpeed;
     private double missChance;
 
-    public Weapon(boolean isConsumable, boolean isEquipable, boolean isStackable, boolean isActive, String itemName, String itemDescription, double baseDamage, double rarity, double critChance, double critMultiplier, double attackSpeed, double missChance) {
-        super(isConsumable, isEquipable, isStackable, isActive,itemName, itemDescription);
+    public Weapon(boolean isConsumable, boolean isEquipable, boolean isStackable, boolean isActive, String itemName, String itemDescription, int rarityWeighting, double baseDamage, double rarity, double critChance, double critMultiplier, double attackSpeed, double missChance) {
+        super(isConsumable, isEquipable, isStackable, isActive,itemName, itemDescription, rarityWeighting);
         this.baseDamage = baseDamage;
         this.critChance = critChance;
         this.critMultiplier = critMultiplier;

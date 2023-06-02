@@ -53,6 +53,8 @@ public class Inventory {
     }
 
     public void constructInventory(int maxPerPage, int currentPage) {
+        menuBar.clear();
+
         int numPages = 0;
 
         if (currentPage == 0 || maxPerPage == 0) { return; }

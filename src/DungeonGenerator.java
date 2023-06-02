@@ -61,8 +61,8 @@ public class DungeonGenerator {
 //        input.next();
 
         ArrayList<Item> lootTable = new ArrayList<>();
-        lootTable.add(new Item(true, false, true, false, "Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP."));
-        lootTable.add(new Item(false, true, false, false, "Wooden Stick", "A short wooden stick. Looks like a sword."));
+        lootTable.add(new Item(true, false, true, false, "Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP.", 5));
+        lootTable.add(new Item(false, true, false, false, "Wooden Stick", "A short wooden stick. Looks like a sword.", 10));
         floor.lootTable = lootTable;
         floor.generateFloor();
         floor.printFloor(false, true);
@@ -196,8 +196,13 @@ public class DungeonGenerator {
 
                 int selection = rd.nextInt(population)+1;
 
+                boolean gotItem = false;
+
                 for (int i = 0; i < floor.lootTable.size(); i++) {
-                    if (selection >= population-floor.lootTable.get(i).rarityWeighting) { floor.player.inventory.addItem(floor.lootTable.get(i)); }
+                    if (selection >= population-floor.lootTable.get(i).rarityWeighting && !gotItem) {
+                        floor.player.inventory.addItem(floor.lootTable.get(i));
+                        gotItem = true;
+                    }
                 }
             }
 
@@ -205,8 +210,7 @@ public class DungeonGenerator {
             floor.player.move(x, y);
         }
 
-        floor.nextFrame();
-        floor.printFloor(false, true);
+        floor.nextFrame(false, true);
     }
 
     public static void calibrateTerminal() {
@@ -220,6 +224,9 @@ public class DungeonGenerator {
 
 /*
  * ideas:
+ *
+ * wd40 movement easter egg
+ *
  *  - item that displays enemy stats in the menu
  *  - boss room, big room with big enemy !?!??!
  *  - ascii text art side menu beside the room generation that displays inventory, health, items, etc. **implementing now!
