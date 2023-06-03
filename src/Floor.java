@@ -11,6 +11,7 @@ public class Floor {
     Inventory inventory;
     Player player;
     Menu menu;
+    Options options;
 
     private int floorLength;
     private int floorWidth;
@@ -29,6 +30,7 @@ public class Floor {
         this.inventory = new Inventory(20);
         this.player = new Player(0, 0, null, 100, null, inventory);
         this.menu = new Menu(player);
+        this.options = new Options();
         this.level = 0;
     }
 
@@ -41,6 +43,7 @@ public class Floor {
             this.inventory = new Inventory(20);
             this.player = new Player(0, 0, null, 100, null, inventory);
             this.menu = new Menu(player);
+            this.options = new Options();
             this.level = level;
             this.lootTable = lootTable;
         }
@@ -117,6 +120,7 @@ public class Floor {
         menu.showEnemyCount = true;
         menu.showPlayerXP = true;
 
+        options.constructOptions(player, 0, 1);
         menu.constructMenu(getTotalEnemies(), level);
         inventory.constructInventory(10, 1);
 
@@ -125,6 +129,7 @@ public class Floor {
     }
     public void printFloor(boolean showMenu, boolean showInventory) {
         int c = 0;
+        int o = 0;
 
         for (int i = 0; i < floorLength; i++) {
             for (int k = 0; k < rooms[0][0].grid.length; k++) {
@@ -142,11 +147,22 @@ public class Floor {
                     if (!((c + 1) > menu.menuBar.size())) {
                         System.out.print(" " + menu.menuBar.get(c));
                         c++;
+                    } else if (!((o + 1) > options.menuBar.size())) {
+                        System.out.print(" " + options.menuBar.get(o));
+                        o++;
                     }
                 } else if (showInventory) {
                     if (!((c + 1) > inventory.menuBar.size())) {
                         System.out.print(" " + inventory.menuBar.get(c));
                         c++;
+                    } else if (!((o + 1) > options.menuBar.size())) {
+                        System.out.print(" " + options.menuBar.get(o));
+                        o++;
+                    }
+                } else {
+                    if (!((o + 1) > options.menuBar.size())) {
+                        System.out.print(" " + options.menuBar.get(o));
+                        o++;
                     }
                 }
 

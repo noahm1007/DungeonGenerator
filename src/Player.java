@@ -2,6 +2,22 @@ import java.util.*;
 
 public class Player {
     public final char playerSymbol = '◆';
+//    public final String asciiArt = """
+//            ⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⡀⢄⠸⣝⣍⡶⠀⠀⡠⠀⢀⠀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⡀⢨⡧⣹⢓⡃⣀⣸⣪⡴⠂⠠⠐⠀⠐⠀⠀⠀
+//            ⠀⢀⣺⠵⢏⢎⢗⡻⢷⣿⢵⡲⡒⠀⠀⡀⠀⠀⠀⠀
+//            ⢀⢳⠀⠀⠘⣟⢷⣟⣩⢽⣝⡓⠓⠳⢻⣿⠫⠿⢔⡦
+//            ⢨⣧⠀⠀⠀⡫⣟⡿⣽⣻⣜⠆⠀⡀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠸⡸⣽⠀⢀⢞⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠀⠘⡜⣧⣸⡳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠀⠀⠙⢖⢯⡁⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠀⠀⠀⠨⢷⣫⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠀⠀⠀⠀⠋⠑⢯⠄⠀⠀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡦⡀⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡮⡧⠀⠀⠀⠀⠀⠀
+//            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡜⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//            """;
  
     public int xPos;
     public int yPos;
@@ -15,7 +31,7 @@ public class Player {
     public int requiredXP;
     public int health;
     protected Item activeItem;
-    protected Inventory inventory;
+    public Inventory inventory;
     protected int maxMoveDistance;
 
     public Player(int xPos, int yPos, Room currentRoom, int maxHealth, Item activeItem, Inventory inventory) {
