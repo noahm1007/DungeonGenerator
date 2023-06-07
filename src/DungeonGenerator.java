@@ -195,20 +195,28 @@ public class DungeonGenerator {
                 }
             }
             if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.treasure) {
-                int population = 0;
-
-                for (int i = 0; i < floor.lootTable.size(); i++) { population += floor.lootTable.get(i).rarityWeighting; }
-
-                int selection = rd.nextInt(population)+1;
-
-                boolean gotItem = false;
+                int totalRarityWeighting = 0;
 
                 for (int i = 0; i < floor.lootTable.size(); i++) {
-                    if (selection >= population-floor.lootTable.get(i).rarityWeighting && !gotItem) {
-                        floor.player.inventory.addItem(floor.lootTable.get(i));
-                        gotItem = true;
+                    totalRarityWeighting += floor.lootTable.get(i).rarityWeighting;
+                }
+
+                int selection = rd.nextInt(totalRarityWeighting)+1;
+                boolean isChosen = false;
+                Item chosenItem = floor.lootTable.get(0);
+
+                for (int i = 0; i < floor.lootTable.size(); i++) {
+                    int value = 0;
+                    for (int j = 0; j < i; j++) {
+                        value += floor.lootTable.get(j).rarityWeighting;
+                    }
+
+                    if ((selection <= value) && !isChosen) {
+                        chosenItem = floor.lootTable.get(i);
                     }
                 }
+
+                floor.player.inventory.addItem(chosenItem);
             }
 
             floor.player.currentRoom.grid[floor.player.xPos][floor.player.yPos] = floor.player.currentRoom.empty;
