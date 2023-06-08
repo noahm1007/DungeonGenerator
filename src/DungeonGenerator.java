@@ -66,8 +66,17 @@ public class DungeonGenerator {
 //        input.next();
 
         ArrayList<Item> lootTable = new ArrayList<>();
-        lootTable.add(new Item(true, false, true, false, "Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP.", 5));
-        lootTable.add(new Item(false, true, false, false, "Wooden Stick", "A short wooden stick. Looks like a sword.", 10));
+        lootTable.add(new Item(true, false, true, false, "Small Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP.", 90));
+        lootTable.add(new Item(false, true, false, false, "Wooden Stick", "A short wooden stick. Looks like a sword.", 25));
+        lootTable.add(new Item(false, true, false, false, "Recursive Sword", "A spring-shaped sword. Hits multiple times, depending on a recursive algorithm.", 2));
+        lootTable.add(new Item(false, true, false, false, "For-each Blaster", "A metallic blaster. Attacks once for each item in your inventory.", 12));
+        lootTable.add(new Item(false, true, false, false, "Random Ring", "A magic ring. Subtracts a random number of damage from each hit you take.", 11));
+        lootTable.add(new Item(true, false, true, false, "Big Health Potion", "Looks like fruit punch, does NOT taste like fruit punch. Restores 50HP", 20));
+        lootTable.add(new Item(false, true, false, false, "Random Shield", "Looks like a shield. Obviously. Has a random chance to deflect an attack. What chance? IDK.", 15));
+        lootTable.add(new Item(false, true , false, false, "Iron Stick", "Better than the Wooden Stick, probably on account of it being metal.", 24));
+        lootTable.add(new Item(true, false, false, false, "while(true) {} bow", "Does 1 damage, forever. Unless it throws an exception. Breaks when used.", 1));
+        lootTable.add(new Item(true, false, true, false, "try catch block", "If your next attack misses, catch and retry it.", 19));
+
         floor.lootTable = lootTable;
         floor.generateFloor();
         floor.printFloor(false, true);

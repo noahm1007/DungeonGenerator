@@ -18,4 +18,8 @@ public class Fight {
         this.enemyArt = enemy.asciiArt.split("\\r?\\n");
 //        this.playerArt = player.asciiArt.split("\\r?\\n");
     }
+
+    public void constructFightWindow() {
+
+    }
 }
