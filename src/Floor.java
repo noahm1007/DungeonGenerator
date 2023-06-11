@@ -101,7 +101,7 @@ public class Floor {
         return total;
     }
 
-    public void nextFrame(boolean showMenu, boolean showInventory) {
+    public void nextFrame(boolean showMenu, boolean showInventory, int page, int selectedItem) {
         for (int i = 0; i < rooms.length; i++) {
             for (int j = 0; j < rooms[i].length; j++) {
                 if (!(rooms[i][j].equals(rooms[floorLength-1][entranceRoom]))) {
@@ -120,7 +120,7 @@ public class Floor {
         menu.showEnemyCount = true;
         menu.showPlayerXP = true;
 
-        options.constructOptions(player, 0, 1);
+        options.constructOptions(player, page, selectedItem);
         menu.constructMenu(getTotalEnemies(), level);
         inventory.constructInventory(10, 1);
 

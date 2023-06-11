@@ -11,6 +11,7 @@ public class DungeonGenerator {
 
         Clock clock = Clock.systemDefaultZone();
         Floor floor = new Floor();
+        Options options = new Options();
 
         String[] title = new String[]{
                 "██▓███   ██▓    ▄▄▄       ▄████▄  ▓█████  ██░ ██  ▒█████   ██▓    ▓█████▄ ▓█████  ██▀███   ",
@@ -81,13 +82,75 @@ public class DungeonGenerator {
         floor.generateFloor();
         floor.printFloor(false, true);
 
+        int page = 0;
+        int selectedItem = -1;
+
         while (true) {
-            try {
-                move(input.next(), floor);
-            } catch (StringIndexOutOfBoundsException ignored) {}
+            inputHandler(input.next(), floor, options, page, selectedItem);
+            page = floor.options.page;
+            selectedItem = floor.options.selectedItem;
         }
     }
-    
+
+    public static void inputHandler(String input, Floor floor, Options options, int page, int selectedItem) {
+        if (input.equalsIgnoreCase("b")) {
+            floor.nextFrame(false, true, page, selectedItem);
+            return;
+        }
+
+        if (isValidMovementString(input)) {
+            move(input, floor);
+        }
+
+        // save
+        switch (page) {
+            case 0 -> { // main page
+                switch (input) {
+                    case "1" -> page = 1;
+                    case "2" -> page = 2;
+                    case "3" -> page = 3;
+                }
+            }
+            case 1 -> { // attack page
+                if (input.matches("[0-9]+") && (Integer.parseInt(input) <= floor.player.currentRoom.enemies.size()) && (Integer.parseInt(input) > 0)) {
+                    Fight fight = new Fight(floor.player.currentRoom.enemies.get(Integer.parseInt(input)-1), floor.player);
+                    fight.constructFightWindow();
+                    // do fight stuff
+                }
+            }
+            case 2 -> {
+                if (input.matches("[0-9]+") && (Integer.parseInt(input) <= floor.player.inventory.inventory.size()) && (Integer.parseInt(input) > 0)) {
+                    page = 4;
+                    selectedItem = Integer.parseInt(input);
+                }
+            }
+            case 3 -> {
+                if (input.equalsIgnoreCase("y")) {
+                }
+                page = 0;
+            }
+            case 4 -> {
+                switch (input) {
+                    case "1" -> { // print description
+                    }
+                    case "2" -> { // print stats
+                    }
+                    case "3" -> floor.player.inventory.inventory.get(selectedItem).isActive = true;
+                    case "4" -> page = 5;
+                }
+            }
+            case 5 -> {
+                if (input.equalsIgnoreCase("y")) {
+                    floor.player.inventory.inventory.remove(selectedItem);
+                }
+                page = 4;
+            }
+//            default -> page = 0;
+        }
+
+        floor.nextFrame(false, true, page, selectedItem);
+    }
+
     public static void typewriterPrint(String text, int speed) throws InterruptedException {
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
@@ -109,7 +172,7 @@ public class DungeonGenerator {
             if (i % 2 == 0) {
                 if (!Character.isLetter(input.charAt(i))) { return false; }
             } else { if (!Character.isDigit(input.charAt(i))) { return false; } }
-        } return true;
+        } return input.length() >= 2;
     }
 
     public static void move(String move, Floor floor) {
@@ -193,7 +256,7 @@ public class DungeonGenerator {
                 y = floor.player.currentRoom.roomWidth - 2;
             }
 
-            if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.enemySymbol) {/*initiate fight*/}
+//            if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.enemySymbol) {/*initiate fight*/}
             if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.hole) {/*make death happen*/}
             while (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.box) {
                 switch (input.charAt(0)) {
@@ -204,35 +267,21 @@ public class DungeonGenerator {
                 }
             }
             if (floor.player.currentRoom.grid[x][y] == floor.player.currentRoom.treasure) {
-                int totalRarityWeighting = 0;
+                Item chosenItem = null;
+                ArrayList<Item> rarityArray = new ArrayList();
 
                 for (int i = 0; i < floor.lootTable.size(); i++) {
-                    totalRarityWeighting += floor.lootTable.get(i).rarityWeighting;
-                }
-
-                int selection = rd.nextInt(totalRarityWeighting)+1;
-                boolean isChosen = false;
-                Item chosenItem = floor.lootTable.get(0);
-
-                for (int i = 0; i < floor.lootTable.size(); i++) {
-                    int value = 0;
-                    for (int j = 0; j < i; j++) {
-                        value += floor.lootTable.get(j).rarityWeighting;
-                    }
-
-                    if ((selection <= value) && !isChosen) {
-                        chosenItem = floor.lootTable.get(i);
+                    for (int j = 0; j < floor.lootTable.get(i).rarityWeighting; j++) {
+                        rarityArray.add(floor.lootTable.get(i));
                     }
                 }
 
-                floor.player.inventory.addItem(chosenItem);
+                floor.player.inventory.addItem(rarityArray.get(rd.nextInt(rarityArray.size())));
             }
 
             floor.player.currentRoom.grid[floor.player.xPos][floor.player.yPos] = floor.player.currentRoom.empty;
             floor.player.move(x, y);
         }
-
-        floor.nextFrame(false, true);
     }
 
     public static void calibrateTerminal() {
