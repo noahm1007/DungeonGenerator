@@ -5,7 +5,7 @@ public class Item {
     boolean isConsumable;
     boolean isEquipable;
     boolean isStackable;
-    boolean isActive;
+//    boolean isActive;
 
     public String itemName;
     public String itemDescription;
@@ -14,11 +14,11 @@ public class Item {
     int inventoryColumn;
     int quantity;
 
-    public Item(boolean isConsumable, boolean isEquipable, boolean isStackable, boolean isActive, String itemName, String itemDescription, int rarityWeighting) {
+    public Item(boolean isConsumable, boolean isEquipable, boolean isStackable /*, boolean isActive*/, String itemName, String itemDescription, int rarityWeighting) {
         this.isConsumable = isConsumable;
         this.isEquipable = isEquipable;
         this.isStackable = isStackable;
-        this.isActive = isActive;
+//        this.isActive = isActive;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.rarityWeighting = rarityWeighting;

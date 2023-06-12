@@ -62,7 +62,7 @@ public class Options {
                 menuBar.set(0, menuBar.get(0) + "inventory.zip\\" + player.inventory.inventory.get(selectedItem).itemName + ".txt");
                 menuBar.add(leadingDesign + " 1.>view description");
                 menuBar.add(leadingDesign + " 2.>view stats");
-                menuBar.add(leadingDesign + " 3.>equip item");
+                menuBar.add(leadingDesign + " 3.>use item");
                 menuBar.add(leadingDesign + " 4.>discard item");
                 menuBar.add(leadingDesign + " >input \"b\" to go back");
                 menuBar.add("\tEND OF FILE");

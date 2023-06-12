@@ -67,16 +67,16 @@ public class DungeonGenerator {
 //        input.next();
 
         ArrayList<Item> lootTable = new ArrayList<>();
-        lootTable.add(new Item(true, false, true, false, "Small Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP.", 90));
-        lootTable.add(new Item(false, true, false, false, "Wooden Stick", "A short wooden stick. Looks like a sword.", 25));
-        lootTable.add(new Item(false, true, false, false, "Recursive Sword", "A spring-shaped sword. Hits multiple times, depending on a recursive algorithm.", 2));
-        lootTable.add(new Item(false, true, false, false, "For-each Blaster", "A metallic blaster. Attacks once for each item in your inventory.", 12));
-        lootTable.add(new Item(false, true, false, false, "Random Ring", "A magic ring. Subtracts a random number of damage from each hit you take.", 11));
-        lootTable.add(new Item(true, false, true, false, "Big Health Potion", "Looks like fruit punch, does NOT taste like fruit punch. Restores 50HP", 20));
-        lootTable.add(new Item(false, true, false, false, "Random Shield", "Looks like a shield. Obviously. Has a random chance to deflect an attack. What chance? IDK.", 15));
-        lootTable.add(new Item(false, true , false, false, "Iron Stick", "Better than the Wooden Stick, probably on account of it being metal.", 24));
-        lootTable.add(new Item(true, false, false, false, "while(true) {} bow", "Does 1 damage, forever. Unless it throws an exception. Breaks when used.", 1));
-        lootTable.add(new Item(true, false, true, false, "try catch block", "If your next attack misses, catch and retry it.", 19));
+        lootTable.add(new Item(true, false, true, "Small Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP.", 90));
+        lootTable.add(new Weapon(false, true, false, false, "Wooden Stick", "A short wooden stick. Looks like a sword.", 25, 10, 6, 2, 5, 17));
+        lootTable.add(new Weapon(false, true, false, false, "Recursive Sword", "A spring-shaped sword. Hits multiple times, depending on a recursive algorithm.", 2, 7, 13, 1.5, 1.8, 14));
+        lootTable.add(new Weapon(false, true, false, false, "For-each Blaster", "A metallic blaster. Attacks once for each item in your inventory.", 12, 6, 10, 1.4, 1, 8));
+        lootTable.add(new Item(false, true, false, "Random Ring", "A magic ring. Subtracts a random number of damage from each hit you take.", 11));
+        lootTable.add(new Item(true, false, true, "Big Health Potion", "Looks like fruit punch, does NOT taste like fruit punch. Restores 50HP", 20));
+        lootTable.add(new Item(false, true, false, "Random Shield", "Looks like a shield. Obviously. Has a random chance to deflect an attack. What chance? IDK.", 15));
+        lootTable.add(new Weapon(false, true , false, false, "Iron Stick", "Better than the Wooden Stick, probably on account of it being metal.", 24, 13, 12, 2.5, 3, 11));
+        lootTable.add(new Weapon(true, false, false, false, "while(true) {} bow", "Does 1 damage, forever. Unless it throws an exception. Breaks when used.", 1, 1, 0, 1, 0.1, 33));
+        lootTable.add(new Item(true, false, true, "try catch block", "If your next attack misses, catch and retry it.", 19));
 
         floor.lootTable = lootTable;
         floor.generateFloor();
@@ -121,7 +121,7 @@ public class DungeonGenerator {
             case 2 -> {
                 if (input.matches("[0-9]+") && (Integer.parseInt(input) <= floor.player.inventory.inventory.size()) && (Integer.parseInt(input) > 0)) {
                     page = 4;
-                    selectedItem = Integer.parseInt(input);
+                    selectedItem = Integer.parseInt(input)-1;
                 }
             }
             case 3 -> {
@@ -135,7 +135,11 @@ public class DungeonGenerator {
                     }
                     case "2" -> { // print stats
                     }
-                    case "3" -> floor.player.inventory.inventory.get(selectedItem).isActive = true;
+                    case "3" -> {
+                        if (floor.player.inventory.inventory.get(selectedItem) instanceof Weapon) {
+                            ((Weapon) floor.player.inventory.inventory.get(selectedItem)).isActive = true;
+                        }
+                    }
                     case "4" -> page = 5;
                 }
             }

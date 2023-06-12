@@ -1,15 +1,17 @@
 public class Weapon extends Item {
     // 0-1 weight
     private double baseDamage;
+    public boolean isActive;
     private double critChance;
     private double critMultiplier;
     private double attackSpeed;
     private double missChance;
 
-    public Weapon(boolean isConsumable, boolean isEquipable, boolean isStackable, boolean isActive, String itemName, String itemDescription, int rarityWeighting, double baseDamage, double rarity, double critChance, double critMultiplier, double attackSpeed, double missChance) {
-        super(isConsumable, isEquipable, isStackable, isActive,itemName, itemDescription, rarityWeighting);
+    public Weapon(boolean isConsumable, boolean isEquipable, boolean isStackable, boolean isActive, String itemName, String itemDescription, int rarityWeighting, double baseDamage, double critChance, double critMultiplier, double attackSpeed, double missChance) {
+        super(isConsumable, isEquipable, isStackable, itemName, itemDescription, rarityWeighting);
         this.baseDamage = baseDamage;
         this.critChance = critChance;
+        this.isActive = isActive;
         this.critMultiplier = critMultiplier;
         this.attackSpeed = attackSpeed;
         this.missChance = missChance;
