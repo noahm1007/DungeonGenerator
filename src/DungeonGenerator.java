@@ -8,7 +8,6 @@ public class DungeonGenerator {
     public static void main(String[] args) throws InterruptedException {
 //        https://www.coolgenerator.com/ascii-text-generator
         Scanner input = new Scanner(System.in);
-
         Clock clock = Clock.systemDefaultZone();
         Floor floor = new Floor();
         Options options = new Options();
@@ -94,6 +93,8 @@ public class DungeonGenerator {
 
     public static void inputHandler(String input, Floor floor, Options options, int page, int selectedItem) {
         if (input.equalsIgnoreCase("b")) {
+            page = 0;
+            selectedItem = -1;
             floor.nextFrame(false, true, page, selectedItem);
             return;
         }
@@ -104,18 +105,42 @@ public class DungeonGenerator {
 
         // save
         switch (page) {
-            case 0 -> { // main page
+            case 0 -> {
                 switch (input) {
                     case "1" -> page = 1;
                     case "2" -> page = 2;
                     case "3" -> page = 3;
                 }
             }
-            case 1 -> { // attack page
+            case 1 -> {
                 if (input.matches("[0-9]+") && (Integer.parseInt(input) <= floor.player.currentRoom.enemies.size()) && (Integer.parseInt(input) > 0)) {
+                    if (floor.player.activeItem == null) {
+                        //die
+                    }
+
                     Fight fight = new Fight(floor.player.currentRoom.enemies.get(Integer.parseInt(input)-1), floor.player);
-                    fight.constructFightWindow();
-                    // do fight stuff
+                    boolean inFight = true;
+                    Scanner sl1 = new Scanner(System.in);
+
+                    while (inFight) {
+                        fight.constructFightWindow();
+                        fight.printFightWindow();
+                        String choice = sl1.next();
+
+                        switch (choice) {
+                            case "1" -> {
+                                double dmg = floor.player.activeItem.attack();
+                                int attackMiss = rd.nextInt(100);
+                                if (!(floor.player.activeItem.missChance <= attackMiss)) {
+                                    floor.player.currentRoom.enemies.get(Integer.parseInt(input)-1).takeDamage(dmg);
+                                    System.out.println("[#] you struck the enemy for " + dmg + " damage.");
+                                } else {
+                                    System.out.println("[#] the attack missed!");
+                                }
+                            }
+                        }
+                    }
+                    sl1.close();
                 }
             }
             case 2 -> {
@@ -126,6 +151,7 @@ public class DungeonGenerator {
             }
             case 3 -> {
                 if (input.equalsIgnoreCase("y")) {
+                    System.out.println("[#] there is no way i have time to implement a save function. good luck! :)");
                 }
                 page = 0;
             }
@@ -147,7 +173,7 @@ public class DungeonGenerator {
                 if (input.equalsIgnoreCase("y")) {
                     floor.player.inventory.inventory.remove(selectedItem);
                 }
-                page = 4;
+                page = 2;
             }
 //            default -> page = 0;
         }
@@ -294,7 +320,6 @@ public class DungeonGenerator {
             System.out.println("[#]");
         }
     }
-
 }
 
 /*

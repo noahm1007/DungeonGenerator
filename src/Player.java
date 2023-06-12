@@ -30,16 +30,16 @@ public class Player {
     public int xp;
     public int requiredXP;
     public int health;
-    protected Item activeItem;
+    public Weapon activeItem;
     public Inventory inventory;
     protected int maxMoveDistance;
 
-    public Player(int xPos, int yPos, Room currentRoom, int maxHealth, Item activeItem, Inventory inventory) {
+    public Player(int xPos, int yPos, Room currentRoom, int maxHealth, Weapon activeItem, Inventory inventory) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.currentRoom = currentRoom;
         this.maxHealth = maxHealth;
-        this.activeItem = activeItem;
+        this.activeItem = new Weapon(false, true, false, true, "stick", "its a stick.", 0, 10, 15, 2, 10, 23);
         this.inventory = inventory;
         this.maxMoveDistance = 5;
         this.health = maxHealth;
