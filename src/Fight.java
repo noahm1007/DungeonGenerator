@@ -42,7 +42,7 @@ public class Fight {
 
         enemyHealth.append("█".repeat(10));
         enemyHealth.append("]");
-        for (int i = enemyHealth.length()-2; i > Math.round((double)(enemy.health/enemy.maxHealth)*100); i--) { enemyHealth.setCharAt(i, '░'); }
+        for (int i = enemyHealth.length()-2; i > Math.round((enemy.health/enemy.maxHealth)*100); i--) { enemyHealth.setCharAt(i, '░'); }
 
         String ehp = enemyHealth.toString();
         menuBar.add(leadingDesign + " > enemies health: " + ehp + " " + enemy.health + "/" + enemy.maxHealth);

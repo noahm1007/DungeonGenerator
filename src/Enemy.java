@@ -54,7 +54,7 @@ public class Enemy {
     }
 
     public void takeDamage(double damage) {
-        if ((health-damage) < 0) { health = 0; }
-        else { health-=damage; }
+        if ((this.health-damage) < 0) { this.health = 0; }
+        else { this.health-=damage; }
     }
 }

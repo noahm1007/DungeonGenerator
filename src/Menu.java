@@ -35,7 +35,7 @@ public class Menu {
         menuBar.add(leadingDesign + " >level: " + player.level);
 
         if (showPlayerHealth) {
-            for (int i = 10; i > 0; i--) { health.append("█"); }
+            health.append("█".repeat(10));
             health.append("]");
             for (int i = health.length()-2; i > Math.round((double)(player.health/player.maxHealth)*100); i--) { health.setCharAt(i, '░'); }
 
@@ -43,7 +43,7 @@ public class Menu {
             menuBar.add(leadingDesign + " >health: " + hp + " " + player.health + "/" + player.maxHealth);
         } else { menuBar.add(leadingDesign + " >health: ???"); }
         if (showPlayerXP) {
-            for (int i = 10; i > 0; i--) { experience.append("░"); }
+            experience.append("░".repeat(10));
             experience.append("]");
             for (int i = 1; i <= Math.round(((double)player.xp/player.requiredXP)*10); i++) { experience.setCharAt(i, '█'); }
 

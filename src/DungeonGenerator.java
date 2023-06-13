@@ -79,7 +79,7 @@ public class DungeonGenerator {
 
         floor.lootTable = lootTable;
         floor.generateFloor();
-        floor.printFloor(false, true);
+        floor.printFloor(true, false);
 
         int page = 0;
         int selectedItem = -1;
@@ -95,7 +95,7 @@ public class DungeonGenerator {
         if (input.equalsIgnoreCase("b")) {
             page = 0;
             selectedItem = -1;
-            floor.nextFrame(false, true, page, selectedItem);
+            floor.nextFrame(true, false, page, selectedItem);
             return;
         }
 
@@ -178,7 +178,7 @@ public class DungeonGenerator {
 //            default -> page = 0;
         }
 
-        floor.nextFrame(false, true, page, selectedItem);
+        floor.nextFrame(true, false, page, selectedItem);
     }
 
     public static void typewriterPrint(String text, int speed) throws InterruptedException {
