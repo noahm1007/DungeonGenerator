@@ -25,12 +25,31 @@ public class Fight {
     }
 
     public void constructFightWindow() {
+        StringBuilder health = new StringBuilder("[");
+        StringBuilder enemyHealth = new StringBuilder("[");
+
         menuBar.clear();
         menuBar.add(leadingDesign + "reading c:\\battle.exe\\");
+
+        health.append("█".repeat(10));
+        health.append("]");
+        for (int i = health.length()-2; i > Math.round((double)(player.health/player.maxHealth)*100); i--) { health.setCharAt(i, '░'); }
+
+        String hp = health.toString();
+        menuBar.add(leadingDesign + " >health: " + hp + " " + player.health + "/" + player.maxHealth);
+
+        //  -----------
+
+        enemyHealth.append("█".repeat(10));
+        enemyHealth.append("]");
+        for (int i = enemyHealth.length()-2; i > Math.round((double)(enemy.health/enemy.maxHealth)*100); i--) { enemyHealth.setCharAt(i, '░'); }
+
+        String ehp = enemyHealth.toString();
+        menuBar.add(leadingDesign + " > enemies health: " + ehp + " " + enemy.health + "/" + enemy.maxHealth);
+
         menuBar.add(leadingDesign + " 1.>attack with main item");
         menuBar.add(leadingDesign + " 2.>use item from inventory");
         menuBar.add("\t\tEND OF FILE");
-
 
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {

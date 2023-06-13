@@ -129,10 +129,10 @@ public class DungeonGenerator {
 
                         switch (choice) {
                             case "1" -> {
-                                double dmg = floor.player.activeItem.attack();
+                                double dmg = fight.player.activeItem.attack();
                                 int attackMiss = rd.nextInt(100);
-                                if (!(floor.player.activeItem.missChance <= attackMiss)) {
-                                    floor.player.currentRoom.enemies.get(Integer.parseInt(input)-1).takeDamage(dmg);
+                                if (fight.player.activeItem.missChance <= attackMiss) {
+                                    fight.enemy.takeDamage(dmg);
                                     System.out.println("[#] you struck the enemy for " + dmg + " damage.");
                                 } else {
                                     System.out.println("[#] the attack missed!");

@@ -24,13 +24,14 @@ public class Enemy {
     int lastYPos;
     int maxMoveDistance;
 
-    private double maxHealth;
-    private int XP;
-    private double baseDamage;
-    private double critChance;
-    private double critMultiplier;
-    private double attackSpeed;
-    private double missChance;
+    public double maxHealth;
+    public double health;
+    public int XP;
+    public double baseDamage;
+    public double critChance;
+    public double critMultiplier;
+    public double attackSpeed;
+    public double missChance;
 
     public Enemy(int maxMoveDistance, double maxHealth, int XP, double baseDamage, double critChance, double critMultiplier, double missChance) {
         this.maxMoveDistance = maxMoveDistance;
@@ -41,6 +42,7 @@ public class Enemy {
         this.attackSpeed = rd.nextDouble();
         this.missChance = missChance;
         this.XP = XP;
+        this.health = maxHealth;
     }
 
     public double attack() {
@@ -52,7 +54,7 @@ public class Enemy {
     }
 
     public void takeDamage(double damage) {
-        if ((maxHealth-damage) < 0) { maxHealth = 0; }
-        else { maxHealth-=damage; }
+        if ((health-damage) < 0) { health = 0; }
+        else { health-=damage; }
     }
 }
