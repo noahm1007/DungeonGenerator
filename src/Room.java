@@ -85,7 +85,7 @@ public class Room {
         }
         this.numEnemies = rd.nextInt(maxEnemies-1)+minEnemies;
         this.enemies = new ArrayList<>();
-        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(6)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
+        for (int i = 0; i < numEnemies; i++) { enemies.add(new Enemy(1, rd.nextInt(10)+15, rd.nextInt(25)+10, rd.nextInt(16)+1, rd.nextDouble(.3), rd.nextInt(3), rd.nextDouble(0.5))); }
     }
 
     public boolean isNorthDoor() { return northDoor; }
@@ -265,8 +265,6 @@ public class Room {
         if (grid[player.lastXPos][player.lastYPos] == player.playerSymbol) { grid[player.lastXPos][player.lastYPos] = empty; }
         grid[player.xPos][player.yPos] = player.playerSymbol;
     }
-
-    public void changeDoorState(boolean state) { isClosed = state; }
 
     public void printRoom() {
         for (int i = 0; i < this.roomLength; i++) {

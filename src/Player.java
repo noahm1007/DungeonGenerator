@@ -2,23 +2,7 @@ import java.util.*;
 
 public class Player {
     public final char playerSymbol = '◆';
-//    public final String asciiArt = """
-//            ⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⡀⢄⠸⣝⣍⡶⠀⠀⡠⠀⢀⠀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⡀⢨⡧⣹⢓⡃⣀⣸⣪⡴⠂⠠⠐⠀⠐⠀⠀⠀
-//            ⠀⢀⣺⠵⢏⢎⢗⡻⢷⣿⢵⡲⡒⠀⠀⡀⠀⠀⠀⠀
-//            ⢀⢳⠀⠀⠘⣟⢷⣟⣩⢽⣝⡓⠓⠳⢻⣿⠫⠿⢔⡦
-//            ⢨⣧⠀⠀⠀⡫⣟⡿⣽⣻⣜⠆⠀⡀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠸⡸⣽⠀⢀⢞⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠀⠘⡜⣧⣸⡳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠀⠀⠙⢖⢯⡁⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠀⠀⠀⠨⢷⣫⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠀⠀⠀⠀⠋⠑⢯⠄⠀⠀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡦⡀⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡮⡧⠀⠀⠀⠀⠀⠀
-//            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡜⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//            """;
- 
+
     public int xPos;
     public int yPos;
     public int lastXPos;
@@ -39,7 +23,7 @@ public class Player {
         this.yPos = yPos;
         this.currentRoom = currentRoom;
         this.maxHealth = maxHealth;
-        this.activeItem = new Weapon(false, true, false, true, "stick", "its a stick.", 0, 10, 15, 2, 10, 23);
+        this.activeItem = new Weapon(false, true, false, true, "stick", "its a stick.", 0, 10, 7, 2, 10, 16);
         this.inventory = inventory;
         this.maxMoveDistance = 5;
         this.health = maxHealth;
@@ -59,6 +43,13 @@ public class Player {
         else { health-=damage; }
     }
 
-    public void recieveXP(int xp) { this.xp += xp; }
-
+    public void recieveXP(int xp) {
+        if (xp + this.xp >= requiredXP) {
+            level++;
+            this.xp = 0;
+            this.requiredXP = level*100;
+        } else {
+            this.xp += xp;
+        }
+    }
 }

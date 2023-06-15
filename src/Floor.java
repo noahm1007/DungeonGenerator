@@ -13,10 +13,11 @@ public class Floor {
     Menu menu;
     Options options;
 
-    private int floorLength;
-    private int floorWidth;
-    private int entranceRoom;
-    private int exitRoom;
+    public int floorLength;
+    public int floorWidth;
+    public int entranceRoom;
+    public int exitRoom;
+    public Room actualExitRoom;
 
     ArrayList<String> floor;
     ArrayList<Item> lootTable;
@@ -70,7 +71,7 @@ public class Floor {
                 if (j == 0) { isWestDoor = false; }
                 if (j == floorWidth-1) { isEastDoor = false; }
 
-                if (i == 0 && j == exitRoom) { isNorthDoor = true; }
+                if (i == 0 && j == exitRoom) { isNorthDoor = true; actualExitRoom = rooms[i][j]; }
                 if (i == floorLength-1 && j == entranceRoom) { isSouthDoor = true; }
                 rooms[i][j] = new Room(7, 21, isNorthDoor, isSouthDoor, isEastDoor, isWestDoor);
 
@@ -94,7 +95,7 @@ public class Floor {
 
         for (int i = 0; i < rooms.length; i++) {
             for (int j = 0; j < rooms[i].length; j++) {
-                total += rooms[i][j].numEnemies;
+                total += rooms[i][j].enemies.size();
             }
         }
 
@@ -107,7 +108,12 @@ public class Floor {
                 if (!(rooms[i][j].equals(rooms[floorLength-1][entranceRoom]))) {
                     rooms[i][j].moveEnemies();
                     rooms[i][j].placeEnemies();
-                    player.currentRoom.changeDoorState(player.currentRoom.numEnemies > 0);
+
+                    if (player.currentRoom.enemies.size() <= 0) {
+                        player.currentRoom.isClosed = false;
+                    } else {
+                        player.currentRoom.isClosed = true;
+                    }
                 }
             }
         }
@@ -137,7 +143,11 @@ public class Floor {
                     Room room = rooms[i][j];
                     char[][] grid = room.grid;
                     for (int l = 0; l < grid[k].length; l++) {
-                        if (rooms[i][j].isClosed && grid[k][l] == 'X') { grid[k][l] = '*'; }
+                        if (rooms[i][j].isClosed && grid[k][l] == 'X') {
+                            grid[k][l] = '*';
+                        } else if (!(rooms[i][j].isClosed) && grid[k][l] == '*') {
+                            grid[k][l] = 'X';
+                        }
                         System.out.print(grid[k][l]);
                     }
 //                    System.out.print("\t\t");

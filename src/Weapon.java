@@ -1,4 +1,8 @@
+import java.util.Random;
+
 public class Weapon extends Item {
+
+    Random rd = new Random();
     // 0-1 weight
     public double baseDamage;
     public boolean isActive;
@@ -18,10 +22,10 @@ public class Weapon extends Item {
     }
 
     public double attack() {
-        double successfulCrit = Math.random();
+        double successfulCrit = rd.nextDouble(100);
 
-        if (successfulCrit >= critChance) {
-            return baseDamage * (critMultiplier+1);
+        if (successfulCrit < critChance) {
+            return baseDamage * critMultiplier;
         } else { return baseDamage; }
     }
 }

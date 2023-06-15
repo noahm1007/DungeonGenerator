@@ -4,6 +4,8 @@ public class Enemy {
     Random rd = new Random();
     final char enemySymbol = '●';
     final String asciiArt = """
+            https://ultrakill.fandom.com/wiki/Florp
+            [═══════════════════════════════════════════════]
             ⠀                ⢀⣀⡤⣤⢤⢤⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
             ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢔⡺⣙⢎⡳⡍⢎⡚⢬⠙⠳⠦⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
             ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⡟⢮⠱⣬⢦⡑⢎⡱⡘⣿⣞⡗⡈⠤⢉⠉⠒⣄⠀⠀⠀⠀⠀⠀⠀⠀
@@ -16,6 +18,7 @@ public class Enemy {
             ⠀⠀⢠⡙⢮⣧⠉⡐⢀⠂⡐⢨⠰⣏⣶⣉⠶⣡⢓⠕⡫⢖⢫⣚⣵⣾⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
             ⠀⢫⠖⠙⠊⠀⢣⣔⣪⣶⣵⣾⣿⣿⣻⣿⣿⣿⣿⣿⡿⠿⠟⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
             ⠀⠀⠀⠀⠀⠀⠈⠺⣭⠋⣏⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+            [═══════════════════════════════════════════════]
             """;
 
     int xPos;
@@ -24,8 +27,8 @@ public class Enemy {
     int lastYPos;
     int maxMoveDistance;
 
-    public double maxHealth;
-    public double health;
+    public int maxHealth;
+    public int health;
     public int XP;
     public double baseDamage;
     public double critChance;
@@ -33,7 +36,7 @@ public class Enemy {
     public double attackSpeed;
     public double missChance;
 
-    public Enemy(int maxMoveDistance, double maxHealth, int XP, double baseDamage, double critChance, double critMultiplier, double missChance) {
+    public Enemy(int maxMoveDistance, int maxHealth, int XP, double baseDamage, double critChance, double critMultiplier, double missChance) {
         this.maxMoveDistance = maxMoveDistance;
         this.maxHealth = maxHealth;
         this.baseDamage = baseDamage;

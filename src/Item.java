@@ -5,7 +5,7 @@ public class Item {
     boolean isConsumable;
     boolean isEquipable;
     boolean isStackable;
-//    boolean isActive;
+    boolean isActive;
 
     public String itemName;
     public String itemDescription;
