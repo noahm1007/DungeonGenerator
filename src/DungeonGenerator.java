@@ -7,20 +7,33 @@ import java.time.Clock;
 public class DungeonGenerator {
     static Random rd = new Random();
     public static void main(String[] args) throws InterruptedException {
+        Scanner input = new Scanner(System.in);
 //        https://www.coolgenerator.com/ascii-text-generator
         boolean newFloor = true;
 
+//        String[] title = new String[]{
+//                "██▓███   ██▓    ▄▄▄       ▄████▄  ▓█████  ██░ ██  ▒█████   ██▓    ▓█████▄ ▓█████  ██▀███   ",
+//                "▓██░  ██▒▓██▒   ▒████▄    ▒██▀ ▀█  ▓█   ▀ ▓██░ ██▒▒██▒  ██▒▓██▒    ▒██▀ ██▌▓█   ▀ ▓██ ▒ ██▒",
+//                "▓██░ ██▓▒▒██░   ▒██  ▀█▄  ▒▓█    ▄ ▒███   ▒██▀▀██░▒██░  ██▒▒██░    ░██   █▌▒███   ▓██ ░▄█ ▒",
+//                "▒██▄█▓▒ ▒▒██░   ░██▄▄▄▄██ ▒▓▓▄ ▄██▒▒▓█  ▄ ░▓█ ░██ ▒██   ██░▒██░    ░▓█▄   ▌▒▓█  ▄ ▒██▀▀█▄  ",
+//                "▒██▒ ░  ░░██████▒▓█   ▓██▒▒ ▓███▀ ░░▒████▒░▓█▒░██▓░ ████▓▒░░██████▒░▒████▓ ░▒████▒░██▓ ▒██▒",
+//                "▒▓▒░ ░  ░░ ▒░▓  ░▒▒   ▓▒█░░ ░▒ ▒  ░░░ ▒░ ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░ ▒░▓  ░ ▒▒▓  ▒ ░░ ▒░ ░░ ▒▓ ░▒▓░",
+//                "░▒ ░     ░ ░ ▒  ░ ▒   ▒▒ ░  ░  ▒    ░ ░  ░ ▒ ░▒░ ░  ░ ▒ ▒░ ░ ░ ▒  ░ ░ ▒  ▒  ░ ░  ░  ░▒ ░ ▒░",
+//                "░░         ░ ░    ░   ▒   ░           ░    ░  ░░ ░░ ░ ░ ▒    ░ ░    ░ ░  ░    ░     ░░   ░ ",
+//                "             ░  ░     ░  ░░ ░         ░  ░ ░  ░  ░    ░ ░      ░  ░   ░       ░  ░   ░     ",
+//                "                          ░                                         ░                      "
+//        };
+
         String[] title = new String[]{
-                "██▓███   ██▓    ▄▄▄       ▄████▄  ▓█████  ██░ ██  ▒█████   ██▓    ▓█████▄ ▓█████  ██▀███   ",
-                "▓██░  ██▒▓██▒   ▒████▄    ▒██▀ ▀█  ▓█   ▀ ▓██░ ██▒▒██▒  ██▒▓██▒    ▒██▀ ██▌▓█   ▀ ▓██ ▒ ██▒",
-                "▓██░ ██▓▒▒██░   ▒██  ▀█▄  ▒▓█    ▄ ▒███   ▒██▀▀██░▒██░  ██▒▒██░    ░██   █▌▒███   ▓██ ░▄█ ▒",
-                "▒██▄█▓▒ ▒▒██░   ░██▄▄▄▄██ ▒▓▓▄ ▄██▒▒▓█  ▄ ░▓█ ░██ ▒██   ██░▒██░    ░▓█▄   ▌▒▓█  ▄ ▒██▀▀█▄  ",
-                "▒██▒ ░  ░░██████▒▓█   ▓██▒▒ ▓███▀ ░░▒████▒░▓█▒░██▓░ ████▓▒░░██████▒░▒████▓ ░▒████▒░██▓ ▒██▒",
-                "▒▓▒░ ░  ░░ ▒░▓  ░▒▒   ▓▒█░░ ░▒ ▒  ░░░ ▒░ ░ ▒ ░░▒░▒░ ▒░▒░▒░ ░ ▒░▓  ░ ▒▒▓  ▒ ░░ ▒░ ░░ ▒▓ ░▒▓░",
-                "░▒ ░     ░ ░ ▒  ░ ▒   ▒▒ ░  ░  ▒    ░ ░  ░ ▒ ░▒░ ░  ░ ▒ ▒░ ░ ░ ▒  ░ ░ ▒  ▒  ░ ░  ░  ░▒ ░ ▒░",
-                "░░         ░ ░    ░   ▒   ░           ░    ░  ░░ ░░ ░ ░ ▒    ░ ░    ░ ░  ░    ░     ░░   ░ ",
-                "             ░  ░     ░  ░░ ░         ░  ░ ░  ░  ░    ░ ░      ░  ░   ░       ░  ░   ░     ",
-                "                          ░                                         ░                      "
+                " ██▀███   ▄▄▄     ▄▄▄█████▓     ▄████  ▄▄▄       ███▄ ▄███▓▓█████  ",
+                "▓██ ▒ ██▒▒████▄   ▓  ██▒ ▓▒    ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀  ",
+                "▓██ ░▄█ ▒▒██  ▀█▄ ▒ ▓██░ ▒░   ▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███    ",
+                "▒██▀▀█▄  ░██▄▄▄▄██░ ▓██▓ ░    ░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄  ",
+                "░██▓ ▒██▒ ▓█   ▓██▒ ▒██▒ ░    ░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒ ",
+                "░ ▒▓ ░▒▓░ ▒▒   ▓▒█░ ▒ ░░       ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░ ",
+                " ░▒ ░ ▒░  ▒   ▒▒ ░   ░         ░   ░   ▒   ▒▒ ░░  ░      ░ ░ ░  ░  ",
+                "  ░░   ░   ░   ▒    ░         ░ ░   ░   ░   ▒   ░      ░      ░    ",
+                "   ░           ░  ░                 ░       ░  ░       ░      ░  ░ "
         };
 
         String[] openingImage = new String[] {
@@ -56,12 +69,12 @@ public class DungeonGenerator {
                 "⣿⣿⣿⣧⣿⣿⣿⣿⣿⣿⣿⠟⠋⠊⡀⠈⣀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠿⣷⣜⣻⣿⣓⡀⡀⡀⢀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣾⡤⠐⠈⠈⠁⠉⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⠉⠉⠑⠚⠫⠴⢒"
         };
 
-//        typewriterPrint(title, 250);
-//        typewriterPrint(openingImage, 250);
-//        typewriterPrint("hey, you, you're finally awake.", 200);
+        typewriterPrint(title, 250);
+        typewriterPrint(openingImage, 250);
+        typewriterPrint("hey, you, you're finally awake.", 200);
 
-//        calibrateTerminal();
-//        input.next();
+        calibrateTerminal();
+        input.next();
 
         ArrayList<Item> lootTable = new ArrayList<>();
         lootTable.add(new Item(true, false, true, "Small Health Potion", "A bubbling blood red liquid contained in a small vile. Restores 25HP.", 90));
@@ -75,7 +88,6 @@ public class DungeonGenerator {
         lootTable.add(new Weapon(false, true , false, false, "Iron Stick", "Better than the Wooden Stick, probably on account of it being metal.", 24, 13, 12, 2.5, 3, 11));
 //        lootTable.add(new Weapon(true, true, false, false, "while(true) {} bow", "Does 1 damage, forever. Unless it throws an exception. Breaks when used.", 1, 1, 0, 1, 0.1, 33));
 
-        Scanner input = new Scanner(System.in);
         Clock clock = Clock.systemDefaultZone();
         Floor floor = new Floor();
         Options options = new Options();
@@ -510,7 +522,7 @@ public class DungeonGenerator {
     }
 }
 
-
+// 4:15AM -- all the scrapped ideas because of no time
 /*
  * ideas:
  *
